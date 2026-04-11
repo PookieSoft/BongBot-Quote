@@ -1,7 +1,7 @@
 {
-    "name": "@pookiesoft/bongbot-ptero",
+    "name": "@pookiesoft/bongbot-quote",
     "version": "0.1.0",
-    "description": "BongBot Pterodactyl Server Management",
+    "description": "BongBot QuoteDB command module",
     "main": "./dist/index.js",
     "type": "module",
     "exports": {
@@ -21,7 +21,7 @@
         "build": "node esbuild.config.mjs --minify",
         "build:lib": "node esbuild.config.mjs --lib && npx tsc --emitDeclarationOnly",
         "prepublishOnly": "npm run build:lib",
-        "build-dev": "docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-ptero . && docker run --rm --env-file .env --volume ./data:/app/data --volume ./logs:/app/logs bongbot-ptero",
+        "build-dev": "docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote . && docker run --rm --env-file .env --volume ./data:/app/data --volume ./logs:/app/logs bongbot-quote",
         "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --json --coverage --outputFile=report.json --passWithNoTests --silent"
     },
     "peerDependencies": {
