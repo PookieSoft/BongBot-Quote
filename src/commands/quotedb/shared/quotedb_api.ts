@@ -14,7 +14,7 @@ export class QuoteDBAPI {
     async getQuotes(client: ExtendedClient, interaction: ChatInputCommandInteraction, amount: number, route: string) {
         const response = await this._caller.get(
             api.url,
-            `/api/v1/quotes/${route}/user/${api.user_id}`,
+            `/${route}/user/${api.user_id}`,
             `max_quotes=${amount}`,
             { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.apikey}` },
         );
@@ -30,7 +30,7 @@ export class QuoteDBAPI {
     async createQuote(content: NewQuote, client: ExtendedClient) {
         const response = await this._caller.post(
             api.url,
-            '/api/v1/quotes',
+            null,
             { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.apikey}` },
             {
                 quote: content.quote,
