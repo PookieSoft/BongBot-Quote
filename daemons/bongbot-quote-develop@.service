@@ -1,0 +1,28 @@
+[Unit]
+Description=BongBot Quote Develop Service for branch %i (auto-stops after 1 hour)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Environment="BRANCH_NAME=%i"
+
+ExecStartPre=-/usr/bin/docker stop bongbot-quote-develop-%i
+ExecStartPre=-/usr/bin/docker rm bongbot-quote-develop-%i
+ExecStartPre=/usr/bin/docker pull mirasi/bongbot-quote-develop:latest
+
+ExecStart=/usr/bin/docker run \
+  --name bongbot-quote-develop-%i \
+  --env-file /etc/bongbot/quote-dev.env \
+  --env BRANCH=${BRANCH_NAME} \
+  --volume /etc/bongbot/logs-dev:/app/logs \
+  mirasi/bongbot-quote-develop:latest
+
+ExecStop=/usr/bin/docker stop bongbot-quote-develop-%i
+ExecStopPost=/usr/bin/docker rm bongbot-quote-develop-%i
+
+RuntimeMaxSec=3600
+
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

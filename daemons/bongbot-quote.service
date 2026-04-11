@@ -1,0 +1,24 @@
+[Unit]
+Description=BongBot Quote Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker stop bongbot-quote
+ExecStartPre=-/usr/bin/docker rm bongbot-quote
+ExecStartPre=/usr/bin/docker pull mirasi/bongbot-quote:latest
+
+ExecStart=/usr/bin/docker run \
+  --name bongbot-quote \
+  --env-file /etc/bongbot/quote.env \
+  --volume /etc/bongbot/logs:/app/logs \
+  mirasi/bongbot-quote:latest
+
+ExecStop=/usr/bin/docker stop bongbot-quote
+ExecStopPost=/usr/bin/docker rm bongbot-quote
+Restart=on-failure
+
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
