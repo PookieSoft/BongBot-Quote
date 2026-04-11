@@ -1,0 +1,88 @@
+# .github/workflows/deploy-develop-dependabot.yml
+#
+# Dependabot-only smoke test. Uses pull_request_target so org-level Actions
+# secrets (DISCORD_API_KEY, DISCORD_CHANNEL_ID, etc.) are available — the
+# regular pull_request trigger withholds them from Dependabot runs.
+#
+# SECURITY: pull_request_target runs in the base-branch context with full
+# secret access. This workflow is gated to github.actor == 'dependabot[bot]'
+# so only PRs authored by Dependabot can reach the checkout-and-execute step.
+
+name: PR CI & Test (Dependabot)
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+    branches: [ main ]
+
+jobs:
+  dependabot-smoke-test:
+    if: github.actor == 'dependabot[bot]'
+    environment: Dev
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      packages: read
+      contents: read
+
+    steps:
+      - name: Checkout PR Head
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run Unit Tests
+        run: |
+          npm ci
+          npm run test
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Local Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          secrets: |
+            NODE_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          tags: bongbot-local:dependabot-pr-${{ github.event.pull_request.number }}
+
+      - name: Smoke Test Local Container
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Running smoke test for Dependabot PR..."
+          cat <<EOF > .env.test
+          DISCORD_API_KEY=${{ secrets.DISCORD_API_KEY }}
+          DISCORD_CHANNEL_ID=${{ secrets.DISCORD_CHANNEL_ID }}
+          EOF
+
+          docker run -d \
+            --name bongbot-quote-test \
+            --env-file ./.env.test \
+            bongbot-local:dependabot-pr-${{ github.event.pull_request.number }}
+
+          echo "Waiting for 15 seconds to let the container initialize..."
+          sleep 15
+
+          if [ "$(docker ps -q -f name=bongbot-quote-test)" ]; then
+            echo "✅ Smoke test passed: Container is running."
+            docker stop bongbot-quote-test
+            docker rm bongbot-quote-test
+            BODY="**Dependabot Smoke Test Passed** ✅
+            The container started successfully and passed the smoke test."
+            gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
+          else
+            echo "❌ Smoke test failed: Container exited unexpectedly."
+            LOGS=$(docker logs bongbot-quote-test 2>&1)
+            docker rm bongbot-quote-test
+            BODY="**Dependabot Smoke Test Failed** ❌
+            The container exited unexpectedly during the smoke test. Here are the logs:
+            \`\`\`
+            ${LOGS}
+            \`\`\`"
+            gh pr comment ${{ github.event.pull_request.number }} --body "$BODY"
+            exit 1
+          fi
