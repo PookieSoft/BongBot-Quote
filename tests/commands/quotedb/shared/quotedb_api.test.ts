@@ -4,7 +4,7 @@ import type { ExtendedClient } from '@pookiesoft/bongbot-core';
 
 const mockApis = {
     quotedb: {
-        url: 'https://quotes.example.com',
+        url: 'https://quotes.example.com/api/v1/quotes',
         apikey: 'mock-api-key',
         user_id: 'mock-user-id',
     },
@@ -82,8 +82,8 @@ describe('QuoteDBAPI', () => {
             );
 
             expect(caller.get).toHaveBeenCalledWith(
-                'https://quotes.example.com',
-                '/api/v1/quotes/search/user/mock-user-id',
+                'https://quotes.example.com/api/v1/quotes',
+                '/search/user/mock-user-id',
                 'max_quotes=3',
                 {
                     'Content-Type': 'application/json',
@@ -106,8 +106,8 @@ describe('QuoteDBAPI', () => {
             );
 
             expect(caller.get).toHaveBeenCalledWith(
-                'https://quotes.example.com',
-                '/api/v1/quotes/random/user/mock-user-id',
+                'https://quotes.example.com/api/v1/quotes',
+                '/random/user/mock-user-id',
                 'max_quotes=1',
                 expect.any(Object),
             );
@@ -249,8 +249,8 @@ describe('QuoteDBAPI', () => {
             );
 
             expect(caller.post).toHaveBeenCalledWith(
-                'https://quotes.example.com',
-                '/api/v1/quotes',
+                'https://quotes.example.com/api/v1/quotes',
+                null,
                 {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer mock-api-key',
