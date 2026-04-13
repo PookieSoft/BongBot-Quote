@@ -5,7 +5,7 @@
     "": {
       "name": "@pookiesoft/bongbot-quote",
       "devDependencies": {
-        "@pookiesoft/bongbot-core": "1.6.0",
+        "@pookiesoft/bongbot-core": "1.6.1",
         "@types/better-sqlite3": "^7.6.13",
         "@types/jest": "^30.0.0",
         "better-sqlite3": "^12.8.0",
@@ -246,7 +246,7 @@
 
     "@pkgr/core": ["@pkgr/core@0.2.9", "", {}, "sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA=="],
 
-    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.0", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.0/9ad8ef5a01ee5090024d8f9340c191e49b1a6c33", { "dependencies": { "ipaddr.js": "^2.3.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "better-sqlite3": "^12.8.0", "discord.js": "^14.26.2" } }, "sha512-iuGUm/TZCbE8k8TVbYZJV3VyR9S/TIDOEL65sJf4Do1xQQsNtpPC6BlfHu7/eF+6Yzsf1yXhFl7a5hAkoFhp4Q=="],
+    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.1", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.1/6416d6d4350dae08535ea9c09e142ba00650de48", { "dependencies": { "ipaddr.js": "^2.3.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "better-sqlite3": "^12.8.0", "discord.js": "^14.26.2" } }, "sha512-NQwCuXqnOwG4BRpY4pswKWuDLA48Kgd6tU+3WFKKpmc4b75e7zd6ZWNGYKS+oX/hkaWQe/S/r2sNqhc1m3OiuA=="],
 
     "@sapphire/async-queue": ["@sapphire/async-queue@1.5.5", "", {}, "sha512-cvGzxbba6sav2zZkH8GPf2oGk9yYoD5qrNWdu9fRehifgnFZJMV+nuy2nON2roRO4yQQ+v7MK/Pktl/HgfsUXg=="],
 
