@@ -24,7 +24,6 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/logs /app/logs
 COPY --from=builder /app/data /app/data
 COPY --from=builder /app/package.json /app/package.json
-COPY --from=builder /app/node_modules/better-sqlite3/build/Release/better_sqlite3.node /app/build/Release/better_sqlite3.node
 
 ENV NODE_ENV=production
 
