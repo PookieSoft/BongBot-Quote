@@ -38,7 +38,7 @@ The following are imported from `@pookiesoft/bongbot-core` and should NOT be dup
 - `Caller` - HTTP client wrapper with SSRF protection
 - `buildError`, `buildUnknownError` - Standardized error response formatting
 - `EMBED_BUILDER` - Discord embed construction utilities
-- `LOGGER` - Logging service (DefaultLogger + FileLogger)
+- `LOGGER` - Logging service (DefaultLogger, BunLogger + FileLogger)
 - `generateCard` - GitHub info card embed generator
 - `validateRequiredConfig` - Config validation utility
 - `ExtendedClient`, `Logger` - TypeScript interfaces

@@ -22,11 +22,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       # --- Run tests with coverage for production ---
       - name: Run Unit Tests with Coverage
         run: |
-          npm ci
-          npm run test
+          bun install --frozen-lockfile
+          bun run test
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JEST_JUNIT_OUTPUT_DIR: ./test-results
