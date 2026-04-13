@@ -18,18 +18,17 @@
         "registry": "https://npm.pkg.github.com"
     },
     "scripts": {
-        "build": "node esbuild.config.mjs --minify",
+        "build": "bun build --target bun --outdir dist --minify --sourcemap src/standalone.ts",
         "build:lib": "node esbuild.config.mjs --lib && npx tsc --emitDeclarationOnly",
         "prepublishOnly": "npm run build:lib",
-        "build-dev": "docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote . && docker run --rm --env-file .env --volume ./data:/app/data --volume ./logs:/app/logs bongbot-quote",
+        "build-dev": "docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote . && docker run --rm --env-file .env --volume ./logs:/app/logs bongbot-quote",
         "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --json --coverage --outputFile=report.json --passWithNoTests --silent"
     },
     "peerDependencies": {
-        "better-sqlite3": "^12.8.0",
         "discord.js": "^14.25.1"
     },
     "devDependencies": {
-        "@pookiesoft/bongbot-core": "^1.5.1",
+        "@pookiesoft/bongbot-core": "1.6.0",
         "@types/better-sqlite3": "^7.6.13",
         "@types/jest": "^30.0.0",
         "better-sqlite3": "^12.8.0",
