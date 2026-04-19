@@ -11,3 +11,9 @@ updates:
       interval: "weekly"
     labels:
       - "patch"
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "patch"
