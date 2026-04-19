@@ -35,11 +35,6 @@
     "pkg": "libc6"
   },
   {
-    "id": "CVE-2026-27171",
-    "severity": "MEDIUM",
-    "pkg": "zlib1g"
-  },
-  {
     "id": "CVE-2026-4046",
     "severity": "MEDIUM",
     "pkg": "libc6"
