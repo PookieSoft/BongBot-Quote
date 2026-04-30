@@ -50,8 +50,7 @@ const createMockClient = () =>
         user: { displayAvatarURL: jest.fn(() => 'http://example.com/avatar.png') },
     }) as unknown as ExtendedClient;
 
-const createMockInteraction = () =>
-    ({}) as unknown as ChatInputCommandInteraction;
+const createMockInteraction = () => ({}) as unknown as ChatInputCommandInteraction;
 
 describe('QuoteDBAPI', () => {
     beforeEach(() => {
@@ -74,12 +73,7 @@ describe('QuoteDBAPI', () => {
                 quotes: [{ quote: 'q1', author: 'a1' }],
             });
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                createMockInteraction(),
-                3,
-                'search',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 3, 'search');
 
             expect(caller.get).toHaveBeenCalledWith(
                 'https://quotes.example.com/api/v1/quotes',
@@ -88,7 +82,7 @@ describe('QuoteDBAPI', () => {
                 {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer mock-api-key',
-                },
+                }
             );
         });
 
@@ -98,18 +92,13 @@ describe('QuoteDBAPI', () => {
                 quotes: [{ quote: 'q', author: 'a' }],
             });
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                createMockInteraction(),
-                1,
-                'random',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 1, 'random');
 
             expect(caller.get).toHaveBeenCalledWith(
                 'https://quotes.example.com/api/v1/quotes',
                 '/random/user/mock-user-id',
                 'max_quotes=1',
-                expect.any(Object),
+                expect.any(Object)
             );
         });
 
@@ -123,7 +112,7 @@ describe('QuoteDBAPI', () => {
                 createMockClient(),
                 createMockInteraction(),
                 1,
-                'search',
+                'search'
             );
 
             expect(mockSetTitle).toHaveBeenCalledWith('Recent Quote');
@@ -140,12 +129,7 @@ describe('QuoteDBAPI', () => {
                 ],
             });
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                createMockInteraction(),
-                2,
-                'search',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 2, 'search');
 
             expect(mockSetTitle).toHaveBeenCalledWith('Recent Quotes');
         });
@@ -156,12 +140,7 @@ describe('QuoteDBAPI', () => {
                 quotes: [{ quote: 'q', author: 'a' }],
             });
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                createMockInteraction(),
-                1,
-                'random',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 1, 'random');
 
             expect(mockSetTitle).toHaveBeenCalledWith('Random Quote');
         });
@@ -175,12 +154,7 @@ describe('QuoteDBAPI', () => {
                 ],
             });
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                createMockInteraction(),
-                2,
-                'random',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 2, 'random');
 
             expect(mockSetTitle).toHaveBeenCalledWith('Random Quotes');
         });
@@ -190,16 +164,11 @@ describe('QuoteDBAPI', () => {
             caller.get.mockResolvedValueOnce({ quotes: [] });
             const interaction = createMockInteraction();
 
-            const result = await new QuoteDBAPI(caller as any).getQuotes(
-                createMockClient(),
-                interaction,
-                1,
-                'search',
-            );
+            const result = await new QuoteDBAPI(caller as any).getQuotes(createMockClient(), interaction, 1, 'search');
 
             expect(mockBuildError).toHaveBeenCalledWith(
                 interaction,
-                expect.objectContaining({ message: 'No quotes found.' }),
+                expect.objectContaining({ message: 'No quotes found.' })
             );
             expect(mockQuoteBuilder).not.toHaveBeenCalled();
             expect(result).toEqual({ isError: true, content: 'mock error' });
@@ -211,12 +180,7 @@ describe('QuoteDBAPI', () => {
             caller.get.mockRejectedValueOnce(err);
 
             await expect(
-                new QuoteDBAPI(caller as any).getQuotes(
-                    createMockClient(),
-                    createMockInteraction(),
-                    1,
-                    'search',
-                ),
+                new QuoteDBAPI(caller as any).getQuotes(createMockClient(), createMockInteraction(), 1, 'search')
             ).rejects.toBe(err);
         });
 
@@ -225,12 +189,7 @@ describe('QuoteDBAPI', () => {
             caller.get.mockResolvedValueOnce({ quotes: [{ quote: 'q', author: 'a' }] });
             const client = createMockClient();
 
-            await new QuoteDBAPI(caller as any).getQuotes(
-                client,
-                createMockInteraction(),
-                1,
-                'search',
-            );
+            await new QuoteDBAPI(caller as any).getQuotes(client, createMockInteraction(), 1, 'search');
 
             expect(mockBuild).toHaveBeenCalledWith(client);
         });
@@ -243,10 +202,7 @@ describe('QuoteDBAPI', () => {
                 quote: { quote: 'new', author: 'me' },
             });
 
-            await new QuoteDBAPI(caller as any).createQuote(
-                { quote: 'new', author: 'me' },
-                createMockClient(),
-            );
+            await new QuoteDBAPI(caller as any).createQuote({ quote: 'new', author: 'me' }, createMockClient());
 
             expect(caller.post).toHaveBeenCalledWith(
                 'https://quotes.example.com/api/v1/quotes',
@@ -260,7 +216,7 @@ describe('QuoteDBAPI', () => {
                     author: 'me',
                     user_id: 'mock-user-id',
                     date: expect.any(String),
-                }),
+                })
             );
         });
 
@@ -272,7 +228,7 @@ describe('QuoteDBAPI', () => {
 
             const result = await new QuoteDBAPI(caller as any).createQuote(
                 { quote: 'new', author: 'me' },
-                createMockClient(),
+                createMockClient()
             );
 
             expect(mockSetTitle).toHaveBeenCalledWith('New Quote Created');
@@ -287,10 +243,7 @@ describe('QuoteDBAPI', () => {
             });
             const client = createMockClient();
 
-            await new QuoteDBAPI(caller as any).createQuote(
-                { quote: 'new', author: 'me' },
-                client,
-            );
+            await new QuoteDBAPI(caller as any).createQuote({ quote: 'new', author: 'me' }, client);
 
             expect(mockBuild).toHaveBeenCalledWith(client);
         });
@@ -301,10 +254,7 @@ describe('QuoteDBAPI', () => {
             caller.post.mockRejectedValueOnce(err);
 
             await expect(
-                new QuoteDBAPI(caller as any).createQuote(
-                    { quote: 'q', author: 'a' },
-                    createMockClient(),
-                ),
+                new QuoteDBAPI(caller as any).createQuote({ quote: 'q', author: 'a' }, createMockClient())
             ).rejects.toBe(err);
         });
     });

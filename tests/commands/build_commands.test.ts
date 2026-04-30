@@ -9,9 +9,7 @@ jest.unstable_mockModule('../../src/commands/quotedb/master.js', () => ({
     default: mockQuotedbCommand,
 }));
 
-const mockCommandBuilder = jest.fn((bot: any, commands: any[]) =>
-    commands.map((c) => c.data.toJSON()),
-);
+const mockCommandBuilder = jest.fn((bot: any, commands: any[]) => commands.map((c) => c.data.toJSON()));
 
 jest.unstable_mockModule('@pookiesoft/bongbot-core', () => ({
     commandBuilder: mockCommandBuilder,

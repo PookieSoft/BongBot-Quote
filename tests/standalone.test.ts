@@ -6,12 +6,7 @@ const mockExecuteReply = jest.fn<(...args: any[]) => Promise<any>>();
 const fakeBot: any = {
     user: { id: fakeBotUserId },
     on: mockOn,
-    commands: new Map([
-        [
-            'quote',
-            { data: { name: 'quote' }, executeReply: mockExecuteReply },
-        ],
-    ]),
+    commands: new Map([['quote', { data: { name: 'quote' }, executeReply: mockExecuteReply }]]),
 };
 
 const mockBasicStart = jest.fn<(...args: any[]) => Promise<any>>().mockResolvedValue(fakeBot);
@@ -67,11 +62,7 @@ describe('standalone (quote bot entry point)', () => {
 
     it('calls basicStart with the right owner, repo and command builder', () => {
         expect(mockBasicStart).toHaveBeenCalledTimes(1);
-        expect(mockBasicStart).toHaveBeenCalledWith(
-            'PookieSoft',
-            'BongBot-Quote',
-            mockBuildCommands,
-        );
+        expect(mockBasicStart).toHaveBeenCalledWith('PookieSoft', 'BongBot-Quote', mockBuildCommands);
     });
 
     it('registers a messageCreate listener on the bot', () => {
@@ -98,18 +89,14 @@ describe('standalone (quote bot entry point)', () => {
         it('replies with a hint when the message is not a reply', async () => {
             const msg = createMessage({ reference: null });
             await messageHandler(msg);
-            expect(msg.reply).toHaveBeenCalledWith(
-                'You need to reply to a message to create a quote from it.',
-            );
+            expect(msg.reply).toHaveBeenCalledWith('You need to reply to a message to create a quote from it.');
             expect(mockExecuteReply).not.toHaveBeenCalled();
         });
 
         it('shows a thinking message, calls executeReply, deletes the thinking message and replies with the result', async () => {
             const thinking = { delete: jest.fn<() => Promise<any>>().mockResolvedValue(undefined) };
             const msg = createMessage();
-            (msg.reply as jest.Mock)
-                .mockResolvedValueOnce(thinking)
-                .mockResolvedValueOnce(undefined);
+            (msg.reply as jest.Mock).mockResolvedValueOnce(thinking).mockResolvedValueOnce(undefined);
             mockExecuteReply.mockResolvedValueOnce({ embeds: ['quote-embed'] });
 
             await messageHandler(msg);
@@ -126,9 +113,7 @@ describe('standalone (quote bot entry point)', () => {
         it('strips the bot mention before checking for additional content', async () => {
             const thinking = { delete: jest.fn<() => Promise<any>>().mockResolvedValue(undefined) };
             const msg = createMessage({ content: `   <@${fakeBotUserId}>   ` });
-            (msg.reply as jest.Mock)
-                .mockResolvedValueOnce(thinking)
-                .mockResolvedValueOnce(undefined);
+            (msg.reply as jest.Mock).mockResolvedValueOnce(thinking).mockResolvedValueOnce(undefined);
             mockExecuteReply.mockResolvedValueOnce({ embeds: ['quote-embed'] });
 
             await messageHandler(msg);
@@ -139,9 +124,7 @@ describe('standalone (quote bot entry point)', () => {
         it('also handles the nickname mention form (<@!id>)', async () => {
             const thinking = { delete: jest.fn<() => Promise<any>>().mockResolvedValue(undefined) };
             const msg = createMessage({ content: `<@!${fakeBotUserId}>` });
-            (msg.reply as jest.Mock)
-                .mockResolvedValueOnce(thinking)
-                .mockResolvedValueOnce(undefined);
+            (msg.reply as jest.Mock).mockResolvedValueOnce(thinking).mockResolvedValueOnce(undefined);
             mockExecuteReply.mockResolvedValueOnce({ embeds: ['quote-embed'] });
 
             await messageHandler(msg);
@@ -163,9 +146,7 @@ describe('standalone (quote bot entry point)', () => {
         it('falls back to buildUnknownError and deletes the thinking reply when an error is thrown', async () => {
             const thinking = { delete: jest.fn<() => Promise<any>>().mockResolvedValue(undefined) };
             const msg = createMessage();
-            (msg.reply as jest.Mock)
-                .mockResolvedValueOnce(thinking)
-                .mockResolvedValueOnce(undefined);
+            (msg.reply as jest.Mock).mockResolvedValueOnce(thinking).mockResolvedValueOnce(undefined);
             const err = new Error('boom');
             mockExecuteReply.mockRejectedValueOnce(err);
 
