@@ -13,17 +13,22 @@ export default class QuoteBuilder {
         return this;
     }
 
-    addQuotes(quotes: { quote: string, author: string }[]): QuoteBuilder {
-        this.embed.addFields(quotes.map((quote) => ({
-            name: `*"${quote.quote}"*`,
-            value: `🪶 - ${quote.author}`,
-            inline: false
-        })));
+    addQuotes(quotes: { quote: string; author: string }[]): QuoteBuilder {
+        this.embed.addFields(
+            quotes.map((quote) => ({
+                name: `*"${quote.quote}"*`,
+                value: `🪶 - ${quote.author}`,
+                inline: false,
+            }))
+        );
         return this;
     }
 
     build(client: ExtendedClient): { embeds: [EmbedBuilder] } {
-        this.embed.setFooter({ text: `BongBot • Quotes from quotes.elmu.dev`, iconURL: client.user?.displayAvatarURL() });
+        this.embed.setFooter({
+            text: `BongBot • Quotes from quotes.elmu.dev`,
+            iconURL: client.user?.displayAvatarURL(),
+        });
         this.embed.setTimestamp();
         this.embed.setColor(Colors.Purple);
         return { embeds: [this.embed] };

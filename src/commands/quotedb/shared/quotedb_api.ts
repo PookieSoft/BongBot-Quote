@@ -12,14 +12,12 @@ export class QuoteDBAPI {
     }
 
     async getQuotes(client: ExtendedClient, interaction: ChatInputCommandInteraction, amount: number, route: string) {
-        const response = await this._caller.get(
-            api.url,
-            `/${route}/user/${api.user_id}`,
-            `max_quotes=${amount}`,
-            { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.apikey}` },
-        );
+        const response = await this._caller.get(api.url, `/${route}/user/${api.user_id}`, `max_quotes=${amount}`, {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${api.apikey}`,
+        });
         if (response?.quotes?.length === 0) {
-            return await buildError(interaction, new Error("No quotes found."));
+            return await buildError(interaction, new Error('No quotes found.'));
         }
         return new QuoteBuilder()
             .setTitle(`${route === 'random' ? 'Random Quote' : 'Recent Quote'}${response.quotes.length > 1 ? `s` : ''}`)
@@ -31,20 +29,16 @@ export class QuoteDBAPI {
         const response = await this._caller.post(
             api.url,
             null,
-            { 'Content-Type': 'application/json', 'Authorization': `Bearer ${api.apikey}` },
+            { 'Content-Type': 'application/json', Authorization: `Bearer ${api.apikey}` },
             {
                 quote: content.quote,
                 author: content.author,
                 user_id: api.user_id,
-                date: new Date().toLocaleString()
+                date: new Date().toLocaleString(),
             }
         );
-        return new QuoteBuilder()
-            .setTitle(`New Quote Created`)
-            .addQuotes([response.quote])
-            .build(client);
+        return new QuoteBuilder().setTitle(`New Quote Created`).addQuotes([response.quote]).build(client);
     }
-
 }
 
 interface NewQuote {

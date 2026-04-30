@@ -109,17 +109,14 @@ describe('quote master command', () => {
             const interaction = createInteraction();
             (interaction.options.getSubcommand as jest.Mock).mockReturnValue('create');
             (interaction.options.getString as jest.Mock).mockImplementation((name: string) =>
-                name === 'quote' ? 'a quote' : 'an author',
+                name === 'quote' ? 'a quote' : 'an author'
             );
             mockCreateQuote.mockResolvedValueOnce({ embeds: ['created'] });
 
             const result = await quoteCommand.execute(interaction, fakeClient);
 
             expect(QuoteDBAPI).toHaveBeenCalledTimes(1);
-            expect(mockCreateQuote).toHaveBeenCalledWith(
-                { quote: 'a quote', author: 'an author' },
-                fakeClient,
-            );
+            expect(mockCreateQuote).toHaveBeenCalledWith({ quote: 'a quote', author: 'an author' }, fakeClient);
             expect(result).toEqual({ embeds: ['created'] });
         });
 
@@ -167,7 +164,7 @@ describe('quote master command', () => {
 
             expect(mockBuildError).toHaveBeenCalledWith(
                 interaction,
-                expect.objectContaining({ message: 'Amount must be between 1 and 10' }),
+                expect.objectContaining({ message: 'Amount must be between 1 and 10' })
             );
             expect(mockGetQuotes).not.toHaveBeenCalled();
             expect(result).toEqual({ isError: true, content: 'mocked build error' });
@@ -182,7 +179,7 @@ describe('quote master command', () => {
 
             expect(mockBuildError).toHaveBeenCalledWith(
                 interaction,
-                expect.objectContaining({ message: 'Amount must be between 1 and 10' }),
+                expect.objectContaining({ message: 'Amount must be between 1 and 10' })
             );
             expect(mockGetQuotes).not.toHaveBeenCalled();
         });
@@ -260,10 +257,7 @@ describe('quote master command', () => {
 
             const result = await quoteCommand.executeReply(message, fakeClient);
 
-            expect(mockCreateQuote).toHaveBeenCalledWith(
-                { quote: 'a wise quote', author: 'Nick' },
-                fakeClient,
-            );
+            expect(mockCreateQuote).toHaveBeenCalledWith({ quote: 'a wise quote', author: 'Nick' }, fakeClient);
             expect(result).toEqual({ embeds: ['created'] });
         });
 
@@ -278,10 +272,7 @@ describe('quote master command', () => {
 
             await quoteCommand.executeReply(message, fakeClient);
 
-            expect(mockCreateQuote).toHaveBeenCalledWith(
-                { quote: 'a quote', author: 'someone' },
-                fakeClient,
-            );
+            expect(mockCreateQuote).toHaveBeenCalledWith({ quote: 'a quote', author: 'someone' }, fakeClient);
         });
 
         it('catches fetchReference errors and forwards them to buildUnknownError', async () => {

@@ -11,66 +11,58 @@ export default {
     data: new SlashCommandBuilder()
         .setName('quote')
         .setDescription('Manage your Pterodactyl panel servers')
-        .addSubcommand(subcommand =>
+        .addSubcommand((subcommand) =>
             subcommand
                 .setName('create')
                 .setDescription('Create a new quote with the specified content and author')
-                .addStringOption(option =>
-                    option
-                        .setName('quote')
-                        .setDescription('The content of the quote')
-                        .setRequired(true)
+                .addStringOption((option) =>
+                    option.setName('quote').setDescription('The content of the quote').setRequired(true)
                 )
-                .addStringOption(option =>
-                    option
-                        .setName('author')
-                        .setDescription('The author of the quote')
-                        .setRequired(true)
+                .addStringOption((option) =>
+                    option.setName('author').setDescription('The author of the quote').setRequired(true)
                 )
         )
-        .addSubcommand(subcommand =>
+        .addSubcommand((subcommand) =>
             subcommand
                 .setName('recent')
                 .setDescription('List of the most recently recorded quotes. Up to 10 quotes will be shown at a time.')
-                .addIntegerOption(option =>
-                    option
-                        .setName('amount')
-                        .setDescription('The amount of quotes to show (max: 10)')
-                        .setRequired(false)
+                .addIntegerOption((option) =>
+                    option.setName('amount').setDescription('The amount of quotes to show (max: 10)').setRequired(false)
                 )
         )
-        .addSubcommand(subcommand =>
+        .addSubcommand((subcommand) =>
             subcommand
                 .setName('random')
                 .setDescription('View a random quote')
-                .addIntegerOption(option =>
-                    option
-                        .setName('amount')
-                        .setDescription('The amount of quotes to show (max: 10)')
-                        .setRequired(false)
+                .addIntegerOption((option) =>
+                    option.setName('amount').setDescription('The amount of quotes to show (max: 10)').setRequired(false)
                 )
         ),
 
     async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient) {
         const subcommand = interaction.options.getSubcommand();
         try {
-            if (!_quotedb) { await initialize(); }
+            if (!_quotedb) {
+                await initialize();
+            }
             return await handleSubcommand(subcommand, client, interaction);
         } catch (error) {
             return await buildError(interaction, error);
-
         }
     },
     async executeReply(message: Message, client: ExtendedClient) {
         try {
             const repliedToMessage = await message.fetchReference();
-            if (!repliedToMessage || !repliedToMessage.content) return "The message you replied to is empty or I can't access it.";
+            if (!repliedToMessage || !repliedToMessage.content)
+                return "The message you replied to is empty or I can't access it.";
 
             const content = {
                 quote: repliedToMessage.content,
-                author: repliedToMessage.member?.displayName ?? repliedToMessage.author.username
+                author: repliedToMessage.member?.displayName ?? repliedToMessage.author.username,
             };
-            if (!_quotedb) { await initialize(); }
+            if (!_quotedb) {
+                await initialize();
+            }
             return await _quotedb.createQuote(content, client);
         } catch (error) {
             return await buildUnknownError(error);
@@ -90,7 +82,7 @@ export default {
             {
                 name: 'random',
                 description: 'View a random selection of quotes. Up to 10 quotes will be shown at a time.',
-            }
+            },
         ],
     },
 };
@@ -105,7 +97,7 @@ async function handleSubcommand(subcommand: string, client: ExtendedClient, inte
         case 'create':
             const content = {
                 quote: interaction.options.getString('quote', true),
-                author: interaction.options.getString('author', true)
+                author: interaction.options.getString('author', true),
             };
             return await _quotedb.createQuote(content, client);
         case 'recent':

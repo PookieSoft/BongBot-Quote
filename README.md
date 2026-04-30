@@ -24,84 +24,93 @@ BongBot-Quote is a microservice in the BongBot ecosystem, integration with quote
 ### Running the Bot
 
 1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/PookieSoft/BongBot-Quote.git
-   cd BongBot-Quote
-   ```
+
+    ```bash
+    git clone https://github.com/PookieSoft/BongBot-Quote.git
+    cd BongBot-Quote
+    ```
 
 2. **Configure environment variables**:
    Copy the example environment file and update it with your credentials:
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Edit `.env` and add your Discord bot token and other API keys:
-   ```env
-   DISCORD_API_KEY=your_discord_bot_token_here
-   DISCORD_CHANNEL_ID=your_channel_id_here
-   # Add other API keys as needed
-   ```
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Edit `.env` and add your Discord bot token and other API keys:
+
+    ```env
+    DISCORD_API_KEY=your_discord_bot_token_here
+    DISCORD_CHANNEL_ID=your_channel_id_here
+    # Add other API keys as needed
+    ```
 
 3. **Run with Docker**:
-   ```bash
-   # Build and run the container
-   docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote .
-   docker run --env-file .env --volume ./logs:/app/logs bongbot-quote
-   ```
 
-   Or use the pre-built image:
-   ```bash
-   # Dev Build
-   docker run --env-file .env --volume --volume ./logs:/app/logs mirasi/bongbot-Quote-develop:latest
-   ```
-   ```bash
-   # Release Build
-   docker run --env-file .env --volume --volume ./logs:/app/logs mirasi/bongbot-Quote:latest
-   ```
-   **It is recommended you use docker for local development.**
+    ```bash
+    # Build and run the container
+    docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote .
+    docker run --env-file .env --volume ./logs:/app/logs bongbot-quote
+    ```
+
+    Or use the pre-built image:
+
+    ```bash
+    # Dev Build
+    docker run --env-file .env --volume --volume ./logs:/app/logs mirasi/bongbot-Quote-develop:latest
+    ```
+
+    ```bash
+    # Release Build
+    docker run --env-file .env --volume --volume ./logs:/app/logs mirasi/bongbot-Quote:latest
+    ```
+
+    **It is recommended you use docker for local development.**
 
 ## Environment Configuration
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DISCORD_API_KEY` | ✅ | Your Discord bot token |
-| `DISCORD_BOT_USER_ID` | ✅ | Your Discord Bot User Id for detecting replies to the bot |
-| `DISCORD_CHANNEL_ID` | ❌ | Default channel ID for info card on bot launch |
-| `QUOTEDB_API_KEY` | ✅ | API Key for interacting with QuoteDB |
-| `QUOTEDB_USER_ID` | ✅ | User Id for the QuoteDB Instance |
+| Variable              | Required | Description                                               |
+| --------------------- | -------- | --------------------------------------------------------- |
+| `DISCORD_API_KEY`     | ✅       | Your Discord bot token                                    |
+| `DISCORD_BOT_USER_ID` | ✅       | Your Discord Bot User Id for detecting replies to the bot |
+| `DISCORD_CHANNEL_ID`  | ❌       | Default channel ID for info card on bot launch            |
+| `QUOTEDB_API_KEY`     | ✅       | API Key for interacting with QuoteDB                      |
+| `QUOTEDB_USER_ID`     | ✅       | User Id for the QuoteDB Instance                          |
 
 ## Available Commands
 
 - `/quote` - Interact with quotedb instance using the following subcommands:
-  - `create` - Create a new quote entry in the quote database
-  - `recent` - Get up to 10 recent quotes from the database
-  - `random` - Get up to 10 random quotes from the database
-  
+    - `create` - Create a new quote entry in the quote database
+    - `recent` - Get up to 10 recent quotes from the database
+    - `random` - Get up to 10 random quotes from the database
+
 ## Local Development Setup
 
 This project uses `@pookiesoft/bongbot-core` from GitHub Packages (private). You'll need a GitHub Personal Access Token to install dependencies.
 
 1. **Create a GitHub Classic PAT**:
-   - Go to **GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)**
-   - Generate a new token with the `read:packages` scope
-   - Ensure the token is authorized for the **PookieSoft** organization
+    - Go to **GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)**
+    - Generate a new token with the `read:packages` scope
+    - Ensure the token is authorized for the **PookieSoft** organization
 
 2. **Set the token in your environment**:
-   ```bash
-   echo 'export NODE_AUTH_TOKEN=ghp_yourTokenHere' >> ~/.bashrc
-   source ~/.bashrc
-   ```
+
+    ```bash
+    echo 'export NODE_AUTH_TOKEN=ghp_yourTokenHere' >> ~/.bashrc
+    source ~/.bashrc
+    ```
 
 3. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 4. **Build and run locally with Docker**:
-   ```bash
-   docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-Quote .
-   docker run --env-file .env --volume ./data:/app/data --volume ./logs:/app/logs bongbot-Quote
-   ```
+    ```bash
+    docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-Quote .
+    docker run --env-file .env --volume ./data:/app/data --volume ./logs:/app/logs bongbot-Quote
+    ```
 
 ## Contributing
 
