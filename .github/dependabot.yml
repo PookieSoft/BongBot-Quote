@@ -9,8 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-    labels:
-      - "patch"
+    labels: []
   - package-ecosystem: "bun"
     directory: "/"
     schedule:
