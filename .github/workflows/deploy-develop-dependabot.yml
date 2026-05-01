@@ -12,7 +12,7 @@ name: PR CI & Test (Dependabot)
 
 on:
   pull_request_target:
-    types: [opened, synchronize, labeled]
+    types: [opened, synchronize]
     branches: [ main ]
 
 jobs:
