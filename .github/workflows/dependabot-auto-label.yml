@@ -11,6 +11,14 @@ on:
 permissions:
     pull-requests: write
 
+# Dependabot adds its default labels (dependencies, npm, major/minor, etc) in
+# rapid succession when opening a PR, firing a `labeled` event for each. The
+# concurrency group cancels any in-flight run for the same PR so only the
+# latest event produces a completed job.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
+
 jobs:
     auto-label:
         uses: PookieSoft/workflows/.github/workflows/dependabot-auto-label.yml@v1
