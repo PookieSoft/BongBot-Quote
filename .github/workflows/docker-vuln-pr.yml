@@ -13,7 +13,7 @@ on:
 
 jobs:
     vuln-check:
-        uses: PookieSoft/workflows/.github/workflows/docker-vuln-pr.yml@f8884246f3cf8553be0920efbabedd849a32066c
+        uses: PookieSoft/workflows/.github/workflows/docker-vuln-pr.yml@v1
         with:
             docker-image-name: bongbot-quote
         secrets: inherit

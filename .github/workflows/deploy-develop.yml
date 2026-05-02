@@ -10,7 +10,7 @@ on:
 
 jobs:
     ci:
-        uses: PookieSoft/workflows/.github/workflows/pr-ci.yml@f8884246f3cf8553be0920efbabedd849a32066c
+        uses: PookieSoft/workflows/.github/workflows/pr-ci.yml@v1
         with:
             runtime: bun
             build-docker: true
