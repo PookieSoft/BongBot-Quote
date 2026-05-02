@@ -11,7 +11,7 @@ on:
 
 jobs:
     release:
-        uses: PookieSoft/workflows/.github/workflows/release.yml@v1
+        uses: PookieSoft/workflows/.github/workflows/release.yml@f8884246f3cf8553be0920efbabedd849a32066c
         with:
             runtime: bun
             build-docker: true
