@@ -11,6 +11,12 @@ on:
         - cron: '0 9 * * 6'  # Saturday 9 AM UTC
     workflow_dispatch:
 
+# Permissions for the reusable workflow's update-baseline (push) and
+# check-new-vulns (schedule) jobs.
+permissions:
+    contents: write
+    pull-requests: write
+
 jobs:
     vuln-check:
         uses: PookieSoft/workflows/.github/workflows/docker-vuln-pr.yml@v1

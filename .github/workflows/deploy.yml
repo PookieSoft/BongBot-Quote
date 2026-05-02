@@ -9,6 +9,14 @@ on:
     push:
         branches: [main]
 
+# Permissions must be granted at the caller level — the reusable workflow can
+# only request a subset of what's granted here. The publish job needs
+# packages:write; the release job needs contents:write to push tags.
+permissions:
+    contents: write
+    pull-requests: read
+    packages: write
+
 jobs:
     release:
         uses: PookieSoft/workflows/.github/workflows/release.yml@v1

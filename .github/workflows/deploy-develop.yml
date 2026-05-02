@@ -8,6 +8,13 @@ on:
         types: [opened, synchronize, labeled]
         branches: [main]
 
+# Permissions must be granted at the caller level — the reusable workflow can
+# only request a subset of what's granted here.
+permissions:
+    checks: write
+    pull-requests: write
+    packages: read
+
 jobs:
     ci:
         uses: PookieSoft/workflows/.github/workflows/pr-ci.yml@v1
