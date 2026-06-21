@@ -246,7 +246,7 @@
 
     "@pkgr/core": ["@pkgr/core@0.2.9", "", {}, "sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA=="],
 
-    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.25", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.25/496b3660a9b67c396550c90bba322bed69fc9d12", { "dependencies": { "better-sqlite3": "^12.10.0", "ipaddr.js": "^2.4.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "discord.js": "^14.26.4" } }, "sha512-zRzvBPGUbOmTHkPuMzPy8WzqEiyP7xwC+W0XAA3W7PW020OGneV+N9lrXUwOPeivxy5scfQrLMuDss7ceTN58Q=="],
+    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.28", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.28/fb6c2897116bd6f0d7c6c2211ff45d08aff2f2f8", { "dependencies": { "better-sqlite3": "^12.11.1", "ipaddr.js": "^2.4.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "discord.js": "^14.26.4" } }, "sha512-rZdwtNXedNj/1tnd6f1Wc14QvNx799R3pzm1BGgZInXDmtE8TF5KuY5py6oEJ3+cxS5UFGa2tAUZUQ2IFFDmsg=="],
 
     "@sapphire/async-queue": ["@sapphire/async-queue@1.5.5", "", {}, "sha512-cvGzxbba6sav2zZkH8GPf2oGk9yYoD5qrNWdu9fRehifgnFZJMV+nuy2nON2roRO4yQQ+v7MK/Pktl/HgfsUXg=="],
 
@@ -939,8 +939,6 @@
     "@jest/core/jest-resolve": ["jest-resolve@30.3.0", "", { "dependencies": { "chalk": "^4.1.2", "graceful-fs": "^4.2.11", "jest-haste-map": "30.3.0", "jest-pnp-resolver": "^1.2.3", "jest-util": "30.3.0", "jest-validate": "30.3.0", "slash": "^3.0.0", "unrs-resolver": "^1.7.11" } }, "sha512-NRtTAHQlpd15F9rUR36jqwelbrDV/dY4vzNte3S2kxCKUJRYNd5/6nTSbYiak1VX5g8IoFF23Uj5TURkUW8O5g=="],
 
     "@mswjs/interceptors/@open-draft/deferred-promise": ["@open-draft/deferred-promise@2.2.0", "", {}, "sha512-CecwLWx3rhxVQF6V4bAgPS5t+So2sTbPgAzafKkVizyi7tlwpcFpdFqq+wqF2OwNBmqFuu6tOyouTuxgpMfzmA=="],
-
-    "@pookiesoft/bongbot-core/better-sqlite3": ["better-sqlite3@12.10.0", "", { "dependencies": { "bindings": "^1.5.0", "prebuild-install": "^7.1.1" } }, "sha512-CyzaZRQKyHkB2ZInfTTl2nvT33EbDpjkLEbE8/Zck3Ll6O0qqvuGdrJ45HgtH+HykRg88ITY3AdreBGN70aBSQ=="],
 
     "ansi-escapes/type-fest": ["type-fest@0.21.3", "", {}, "sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w=="],
 
