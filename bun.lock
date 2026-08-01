@@ -246,7 +246,7 @@
 
     "@pkgr/core": ["@pkgr/core@0.2.9", "", {}, "sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA=="],
 
-    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.31", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.31/4e2b3a41a7ea1f87d96c25be74921a8841f2b100", { "dependencies": { "better-sqlite3": "^12.11.1", "ipaddr.js": "^2.4.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "discord.js": "^14.26.4" } }, "sha512-30P6NUqYQzn9Y9T3UH+sWHY6SamrgjP9XMCG187jvk7RqtTdGrU0bLdkWAvpL/UdMDxpgGklzfqqc211Ixjj1w=="],
+    "@pookiesoft/bongbot-core": ["@pookiesoft/bongbot-core@1.6.35", "https://npm.pkg.github.com/download/@pookiesoft/bongbot-core/1.6.35/fe32fbd44677c2f5ac7138dd3a1d1b1ba3647c2e", { "dependencies": { "better-sqlite3": "^12.11.1", "ipaddr.js": "^2.4.0", "source-map-support": "^0.5.21" }, "peerDependencies": { "discord.js": "^14.26.4" } }, "sha512-MVHh877uZNpyFm32YrtswHLPE8r4v140DfhX3xjRmcBh6H2qpLBk1SG22hS2lzozsWYbZxqohu073eNq+zbv0A=="],
 
     "@sapphire/async-queue": ["@sapphire/async-queue@1.5.5", "", {}, "sha512-cvGzxbba6sav2zZkH8GPf2oGk9yYoD5qrNWdu9fRehifgnFZJMV+nuy2nON2roRO4yQQ+v7MK/Pktl/HgfsUXg=="],
 
