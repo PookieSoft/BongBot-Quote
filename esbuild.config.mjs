@@ -1,6 +1,5 @@
 import esbuild from 'esbuild';
-import { copyFileSync, cpSync, existsSync, mkdirSync } from 'fs';
-import { dirname, join } from 'path';
+import { cpSync, existsSync, mkdirSync } from 'fs';
 
 const nativeModulePlugin = {
     name: 'native-module-plugin',
@@ -59,27 +58,6 @@ const libBuildOptions = {
 
 const buildOptions = isLib ? libBuildOptions : standaloneBuildOptions;
 
-// Copy better-sqlite3 native bindings after build
-async function copyNativeBindings() {
-    const sqlitePath = 'node_modules/better-sqlite3/build/Release/better_sqlite3.node';
-    const destDir = 'dist/build/Release';
-
-    if (!existsSync(sqlitePath)) {
-        throw new Error(`Native binding not found: ${sqlitePath}`);
-    }
-
-    try {
-        if (!existsSync(destDir)) {
-            mkdirSync(destDir, { recursive: true });
-        }
-
-        copyFileSync(sqlitePath, join(destDir, 'better_sqlite3.node'));
-        console.log('✓ Copied native SQLite binding');
-    } catch (error) {
-        throw new Error(`Error copying native bindings: ${error.message}`);
-    }
-}
-
 // Copy bongbot-core response files to dist
 function copyCoreResponses() {
     const coreResponsesDir = 'node_modules/@pookiesoft/bongbot-core/dist/responses';
@@ -107,7 +85,6 @@ if (isWatch) {
     console.log('Watching for changes...');
 } else {
     await esbuild.build(buildOptions);
-    await copyNativeBindings();
     copyCoreResponses();
     console.log('Build complete!');
 }
