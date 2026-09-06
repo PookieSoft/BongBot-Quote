@@ -35,6 +35,21 @@
     "pkg": "libc6"
   },
   {
+    "id": "CVE-2026-18374",
+    "severity": "MEDIUM",
+    "pkg": "libc6"
+  },
+  {
+    "id": "CVE-2026-19499",
+    "severity": "MEDIUM",
+    "pkg": "libc6"
+  },
+  {
+    "id": "CVE-2026-19542",
+    "severity": "MEDIUM",
+    "pkg": "libc6"
+  },
+  {
     "id": "CVE-2026-4046",
     "severity": "MEDIUM",
     "pkg": "libc6"
@@ -76,6 +91,16 @@
   },
   {
     "id": "CVE-2026-6791",
+    "severity": "MEDIUM",
+    "pkg": "libc6"
+  },
+  {
+    "id": "CVE-2026-77117",
+    "severity": "MEDIUM",
+    "pkg": "libc6"
+  },
+  {
+    "id": "CVE-2026-80489",
     "severity": "MEDIUM",
     "pkg": "libc6"
   }
