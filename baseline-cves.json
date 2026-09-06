@@ -50,21 +50,6 @@
     "pkg": "libc6"
   },
   {
-    "id": "CVE-2026-4046",
-    "severity": "MEDIUM",
-    "pkg": "libc6"
-  },
-  {
-    "id": "CVE-2026-4437",
-    "severity": "MEDIUM",
-    "pkg": "libc6"
-  },
-  {
-    "id": "CVE-2026-4438",
-    "severity": "LOW",
-    "pkg": "libc6"
-  },
-  {
     "id": "CVE-2026-5435",
     "severity": "MEDIUM",
     "pkg": "libc6"
