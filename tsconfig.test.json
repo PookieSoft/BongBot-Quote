@@ -1,0 +1,14 @@
+// Type-check only. @swc/jest strips types without checking them, so the type
+// safety ts-jest used to provide during `jest` runs now comes from running
+// `tsc --noEmit` over both src and tests before the suite.
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "declaration": false,
+        "rootDir": ".",
+        "types": ["jest", "node"]
+    },
+    "include": ["src/**/*", "tests/**/*"],
+    "exclude": ["node_modules", "dist"]
+}

@@ -22,13 +22,16 @@
         "build:lib": "node esbuild.config.mjs --lib && npx tsc --emitDeclarationOnly",
         "prepublishOnly": "npm run build:lib",
         "build-dev": "docker build --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN -t bongbot-quote . && docker run --rm --env-file .env --volume ./logs:/app/logs bongbot-quote",
-        "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --json --coverage --outputFile=report.json --passWithNoTests --silent"
+        "test": "tsc -p tsconfig.test.json && cross-env NODE_OPTIONS=--experimental-vm-modules jest --json --coverage --outputFile=report.json --passWithNoTests --silent",
+        "typecheck": "tsc -p tsconfig.test.json"
     },
     "peerDependencies": {
         "discord.js": "^14.26.3"
     },
     "devDependencies": {
         "@pookiesoft/bongbot-core": "^1.6.1",
+        "@swc/core": "^1.16.2",
+        "@swc/jest": "^0.2.39",
         "@types/jest": "^30.0.0",
         "better-sqlite3": "^13.0.1",
         "cross-env": "^10.1.0",
@@ -38,9 +41,6 @@
         "jest-junit": "^17.0.0",
         "msw": "^2.13.6",
         "prettier": "^3.8.3",
-        "ts-jest": "^29.4.6",
-        "ts-jest-resolver": "^2.0.1",
-        "ts-node": "^10.9.2",
         "typescript": "^6.0.3"
     }
 }

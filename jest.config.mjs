@@ -1,23 +1,40 @@
-import type { Config } from 'jest';
-
-const config: Config = {
-    preset: 'ts-jest/presets/default-esm',
+/**
+ * Plain .mjs rather than .ts on purpose: a TypeScript config file would need a
+ * TS loader (ts-node), which reaches for the same TypeScript compiler API that
+ * TS 7 no longer exposes. Keeping the config in JS is what lets the toolchain
+ * move to TS 7 at all.
+ *
+ * @type {import('jest').Config}
+ */
+const config = {
     testEnvironment: 'node',
 
     // ✅ Handle TypeScript + ESM
+    // @swc/jest strips types and emits ESM; it does not type-check. Type safety
+    // is enforced separately by `npm run typecheck` (see package.json), which
+    // the `test` script runs first.
     transform: {
-        '^.+\\.[tj]sx?$': ['ts-jest', { useESM: true }],
+        '^.+\\.[tj]sx?$': [
+            '@swc/jest',
+            {
+                jsc: {
+                    parser: { syntax: 'typescript', tsx: false },
+                    target: 'es2024',
+                },
+                module: { type: 'es6' },
+                // Required for accurate coverage line mapping back to the .ts source.
+                sourceMaps: true,
+            },
+        ],
     },
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
     // ✅ Fix imports like "./something.js" inside ESM
+    // This replaces ts-jest-resolver, which did the same .js -> .ts remap.
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.js$': '$1',
     },
-
-    // ✅ Optional resolver for tsconfig paths
-    resolver: 'ts-jest-resolver',
 
     setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
 
@@ -32,7 +49,7 @@ const config: Config = {
     coverageDirectory: 'coverage',
     coveragePathIgnorePatterns: [
         '/babel.config.js',
-        '/jest.config.ts',
+        '/jest.config.mjs',
         '/tests/utils/*',
         '/tests/mocks/*',
         '/coverage/*',
@@ -56,10 +73,6 @@ const config: Config = {
     ],
 
     testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-
-    // Limit worker memory to help with ts-jest memory leak
-    // https://github.com/kulshekhar/ts-jest/issues/1967
-    workerIdleMemoryLimit: '1024MB',
 };
 
 export default config;

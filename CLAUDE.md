@@ -10,7 +10,7 @@ A Discord Bot built on NodeJS in TypeScript for Pterodactyl server management. S
 
 - Bot: TypeScript
 - Database: SQLite
-- Testing: jest, ts-jest
+- Testing: jest, @swc/jest (transform only — type-checking runs separately via `npm run typecheck`)
 - Core Library: @pookiesoft/bongbot-core
 
 ## Code Conventions
